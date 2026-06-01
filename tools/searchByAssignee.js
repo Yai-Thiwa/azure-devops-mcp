@@ -1,0 +1,14 @@
+const { runWIQL } = require("../azure");
+
+module.exports = async function (name, limit = 100) {
+
+    const query = `
+    SELECT
+      [System.Id]
+    FROM WorkItems
+    WHERE
+      [System.AssignedTo] CONTAINS '${name}'
+  `;
+
+    return runWIQL(query, limit);
+};
