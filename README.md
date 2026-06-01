@@ -23,7 +23,7 @@ The server exposes the following tools to your AI assistant:
 
 1. Navigate to the project directory:
    ```bash
-   cd /Users/integra8t/Documents/mcp/azure-devops-mcp
+   cd /Users/my-mac/Documents/mcp/azure-devops-mcp
    ```
 2. Install all required dependencies:
    ```bash
@@ -45,13 +45,13 @@ To connect this server with **Claude Desktop**, add the configuration below to y
 {
   "mcpServers": {
     "azure-devops-report": {
-      "command": "/Users/integra8t/.nvm/versions/node/v20.14.0/bin/node",
+      "command": "/Users/my-mac/.nvm/versions/node/v20.14.0/bin/node",
       "args": [
-        "/Users/integra8t/Documents/mcp/azure-devops-mcp/server.js"
+        "/Users/my-mac/Documents/mcp/azure-devops-mcp/server.js"
       ],
       "env": {
         "AZURE_DEVOPS_PAT": "YOUR_PERSONAL_ACCESS_TOKEN",
-        "AZURE_DEVOPS_ORG": "Integra8t",
+        "AZURE_DEVOPS_ORG": "MyOrg",
         "AZURE_DEVOPS_PROJECT": "YourDefaultProject"
       }
     }
@@ -61,7 +61,7 @@ To connect this server with **Claude Desktop**, add the configuration below to y
 
 > [!IMPORTANT]
 > - Ensure `"command"` points to the absolute path of your active **Node.js** binary (especially if using NVM).
-> - `"AZURE_DEVOPS_ORG"` must contain **only the name of the organization** (e.g., `"Integra8t"`), **not** the full URL.
+> - `"AZURE_DEVOPS_ORG"` must contain **only the name of the organization** (e.g., `"MyOrg"`), **not** the full URL.
 > - `"AZURE_DEVOPS_PROJECT"` acts as the default fallback project if a tool is called without specifying a project.
 
 ---
