@@ -1,6 +1,6 @@
 const { runWIQL } = require("../azure");
 
-module.exports = async function (limit = 100) {
+module.exports = async function (limit = 100, project) {
 
     const query = `
     SELECT
@@ -12,5 +12,5 @@ module.exports = async function (limit = 100) {
       AND [System.State] <> 'Done'
   `;
 
-    return runWIQL(query, limit);
+    return runWIQL(query, project, limit);
 };

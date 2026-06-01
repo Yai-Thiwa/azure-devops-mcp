@@ -75,18 +75,27 @@ async function getWorkItem(id) {
     return res.data;
 }
 
-async function runWIQL(query, limit = 100) {
+async function runWIQL(query, projectOverride, limit = 100) {
+
+    let targetProject = project;
+    let actualLimit = limit;
+
+    if (typeof projectOverride === "number") {
+        actualLimit = projectOverride;
+    } else if (projectOverride) {
+        targetProject = projectOverride;
+    }
 
     const res = await api.post(
-        `/${project}/_apis/wit/wiql?api-version=7.1`,
+        `/${targetProject}/_apis/wit/wiql?api-version=7.1`,
         { query }
     );
 
     const ids = (res.data.workItems || [])
-        .slice(0, limit)
+        .slice(0, actualLimit)
         .map(w => w.id);
 
-    console.error(`Found ${ids.length} work items`);
+    console.error(`Found ${ids.length} work items in project ${targetProject}`);
 
     if (ids.length === 0) {
         return [];

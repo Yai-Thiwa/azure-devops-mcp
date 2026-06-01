@@ -1,6 +1,6 @@
 const { runWIQL } = require("../azure");
 
-module.exports = async function listWorkItems(limit = 50) {
+module.exports = async function listWorkItems(limit = 50, project) {
 
     const query = `
     SELECT
@@ -12,5 +12,5 @@ module.exports = async function listWorkItems(limit = 50) {
       [System.ChangedDate] DESC
   `;
 
-    return runWIQL(query, limit);
+    return runWIQL(query, project, limit);
 };

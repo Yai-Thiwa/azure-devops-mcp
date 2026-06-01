@@ -1,8 +1,8 @@
 const listWorkItems = require("./listWorkItems");
 
-module.exports = async function () {
+module.exports = async function (project) {
 
-    const items = await listWorkItems(500);
+    const items = await listWorkItems(500, project);
 
     const summary = {
         total: items.length,

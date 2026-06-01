@@ -51,6 +51,10 @@ server.setRequestHandler(
                         limit: {
                             type: "number",
                             description: "Maximum number of work items"
+                        },
+                        project: {
+                            type: "string",
+                            description: "Azure DevOps project name (optional, falls back to default project if not specified)"
                         }
                     }
                 }
@@ -81,6 +85,10 @@ server.setRequestHandler(
                         },
                         limit: {
                             type: "number"
+                        },
+                        project: {
+                            type: "string",
+                            description: "Azure DevOps project name (optional)"
                         }
                     },
                     required: ["tag"]
@@ -91,7 +99,16 @@ server.setRequestHandler(
                 description: "Get active/open bugs",
                 inputSchema: {
                     type: "object",
-                    properties: {}
+                    properties: {
+                        limit: {
+                            type: "number",
+                            description: "Maximum number of bugs"
+                        },
+                        project: {
+                            type: "string",
+                            description: "Azure DevOps project name (optional)"
+                        }
+                    }
                 }
             },
             {
@@ -106,6 +123,10 @@ server.setRequestHandler(
                         },
                         limit: {
                             type: "number"
+                        },
+                        project: {
+                            type: "string",
+                            description: "Azure DevOps project name (optional)"
                         }
                     },
                     required: ["name"]
@@ -116,7 +137,12 @@ server.setRequestHandler(
                 description: "Summary of work items grouped by state and type",
                 inputSchema: {
                     type: "object",
-                    properties: {}
+                    properties: {
+                        project: {
+                            type: "string",
+                            description: "Azure DevOps project name (optional)"
+                        }
+                    }
                 }
             }
         ]
@@ -147,7 +173,8 @@ server.setRequestHandler(
 
                 return response(
                     await listWorkItems(
-                        args.limit || 50
+                        args.limit || 50,
+                        args.project
                     )
                 );
 
@@ -164,14 +191,18 @@ server.setRequestHandler(
                 return response(
                     await searchByTag(
                         args.tag,
-                        args.limit || 100
+                        args.limit || 100,
+                        args.project
                     )
                 );
 
             case "get_active_bugs":
 
                 return response(
-                    await getActiveBugs()
+                    await getActiveBugs(
+                        args.limit || 100,
+                        args.project
+                    )
                 );
 
             case "search_by_assignee":
@@ -179,14 +210,17 @@ server.setRequestHandler(
                 return response(
                     await searchByAssignee(
                         args.name,
-                        args.limit || 100
+                        args.limit || 100,
+                        args.project
                     )
                 );
 
             case "work_item_summary":
 
                 return response(
-                    await workItemSummary()
+                    await workItemSummary(
+                        args.project
+                    )
                 );
 
             default:

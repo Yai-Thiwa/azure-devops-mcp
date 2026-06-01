@@ -1,6 +1,6 @@
 const { runWIQL } = require("../azure");
 
-module.exports = async function (tag, limit = 100) {
+module.exports = async function (tag, limit = 100, project) {
 
     const query = `
     SELECT
@@ -10,5 +10,5 @@ module.exports = async function (tag, limit = 100) {
       [System.Tags] CONTAINS '${tag}'
   `;
 
-    return runWIQL(query, limit);
+    return runWIQL(query, project, limit);
 };
