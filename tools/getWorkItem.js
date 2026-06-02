@@ -1,12 +1,5 @@
-const { getWorkItemsByIds } = require("../azure");
+const { getWorkItemWithProject } = require("../azure");
 
-async function getWorkItem(id) {
-
-    const items = await getWorkItemsByIds([id]);
-
-    return items.length ? items[0] : null;
-}
-
-module.exports = {
-    getWorkItem
+module.exports = async function getWorkItem(id, project) {
+    return getWorkItemWithProject(id, project);
 };

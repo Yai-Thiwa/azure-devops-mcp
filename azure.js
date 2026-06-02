@@ -75,6 +75,23 @@ async function getWorkItem(id) {
     return res.data;
 }
 
+async function getWorkItemWithProject(id, projectOverride) {
+
+    const targetProject = projectOverride || project;
+
+    const res = await api.get(
+        `/${targetProject}/_apis/wit/workitems/${id}`,
+        {
+            params: {
+                fields: DEFAULT_FIELDS.join(","),
+                "api-version": "7.1"
+            }
+        }
+    );
+
+    return res.data;
+}
+
 async function runWIQL(query, projectOverride, limit = 100) {
 
     let targetProject = project;
@@ -107,5 +124,6 @@ async function runWIQL(query, projectOverride, limit = 100) {
 module.exports = {
     runWIQL,
     getWorkItemsByIds,
-    getWorkItem
+    getWorkItem,
+    getWorkItemWithProject
 };

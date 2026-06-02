@@ -3,7 +3,6 @@ console.log = () => { };
 
 require("dotenv").config();
 
-
 const {
     Server
 } = require("@modelcontextprotocol/sdk/server/index.js");
@@ -68,6 +67,10 @@ server.setRequestHandler(
                         id: {
                             type: "number",
                             description: "Work item ID"
+                        },
+                        project: {
+                            type: "string",
+                            description: "Azure DevOps project name (optional)"
                         }
                     },
                     required: ["id"]
@@ -182,7 +185,8 @@ server.setRequestHandler(
 
                 return response(
                     await getWorkItem(
-                        args.id
+                        args.id,
+                        args.project
                     )
                 );
 
